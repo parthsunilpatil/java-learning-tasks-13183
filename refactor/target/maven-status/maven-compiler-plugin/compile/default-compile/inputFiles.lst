@@ -1,0 +1,12 @@
+/home/parthp/eclipse-workspace/java-learning-tasks/refactor/src/main/java/com/tbc/playarea/javalearning/tasks/refactor/StatementContext.java
+/home/parthp/eclipse-workspace/java-learning-tasks/refactor/src/main/java/com/tbc/playarea/javalearning/tasks/refactor/BookRentalClient.java
+/home/parthp/eclipse-workspace/java-learning-tasks/refactor/src/main/java/com/tbc/playarea/javalearning/tasks/refactor/Book.java
+/home/parthp/eclipse-workspace/java-learning-tasks/refactor/src/main/java/com/tbc/playarea/javalearning/tasks/refactor/EmailStatementStrategy.java
+/home/parthp/eclipse-workspace/java-learning-tasks/refactor/src/main/java/com/tbc/playarea/javalearning/tasks/refactor/Rental.java
+/home/parthp/eclipse-workspace/java-learning-tasks/refactor/src/main/java/com/tbc/playarea/javalearning/tasks/refactor/BookFactory.java
+/home/parthp/eclipse-workspace/java-learning-tasks/refactor/src/main/java/com/tbc/playarea/javalearning/tasks/refactor/NonFictionBook.java
+/home/parthp/eclipse-workspace/java-learning-tasks/refactor/src/main/java/com/tbc/playarea/javalearning/tasks/refactor/FictionBook.java
+/home/parthp/eclipse-workspace/java-learning-tasks/refactor/src/main/java/com/tbc/playarea/javalearning/tasks/refactor/StatementStrategy.java
+/home/parthp/eclipse-workspace/java-learning-tasks/refactor/src/main/java/com/tbc/playarea/javalearning/tasks/refactor/ChildrenBook.java
+/home/parthp/eclipse-workspace/java-learning-tasks/refactor/src/main/java/com/tbc/playarea/javalearning/tasks/refactor/PDFStatementStrategy.java
+/home/parthp/eclipse-workspace/java-learning-tasks/refactor/src/main/java/com/tbc/playarea/javalearning/tasks/refactor/Customer.java
