@@ -8,11 +8,13 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.TimeUnit;
 
+import com.tbc.playarea.multithreading.dao.Folder;
+import com.tbc.playarea.multithreading.service.impl.FolderSearchTask;
+
 public class WordCountForkJoin {
 	
 	public static void main(String[] args) throws InterruptedException {
 		ConcurrentHashMap<String, WordCount> wordCountMap = new ConcurrentHashMap<>();
-		//TrieMap<String, WordCount> wordCountMap = new TrieMap<>();
 		String folderName = "/home/parthp/wiki_searches/";
 		countWords(wordCountMap, folderName);
 		try (

@@ -2,6 +2,8 @@ package com.tbc.playarea.multithreading;
 
 import java.util.concurrent.ConcurrentHashMap;
 
+import com.tbc.playarea.multithreading.service.impl.Trie;
+
 public class AutoSuggest {
 
 	private static final int LOWER_BOUND = (int)'A';
