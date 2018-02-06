@@ -25,7 +25,7 @@ public class FuzzyBasedAutoSuggest extends BasicAutoSuggest {
 		List<String> results = new LinkedList<>();
 		if(root.terminal) {
 			int levenshteinDist = LevenshteinDistance.getDefaultInstance().apply(prefix, root.value);
-			if(levenshteinDist < root.value.length())
+			if(levenshteinDist >= 0 && levenshteinDist <= root.value.length())
 				results.add(root.value);
 		}
 		for(Entry<Character, Trie> entry : root.children.entrySet()) {
