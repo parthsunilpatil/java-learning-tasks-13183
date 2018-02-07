@@ -13,5 +13,6 @@
   	<module>multithreading</module>
   	<module>refactor</module>
   	<module>collections</module>
+  	<module>annotations</module>
   </modules>
 </project>
