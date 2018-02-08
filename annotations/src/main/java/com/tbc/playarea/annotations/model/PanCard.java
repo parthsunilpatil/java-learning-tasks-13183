@@ -2,6 +2,9 @@ package com.tbc.playarea.annotations.model;
 
 import java.time.LocalDate;
 
+import com.tbc.playarea.annotations.CustomValidateField;
+import com.tbc.playarea.annotations.DocumentFields;
+
 public class PanCard {
 	
 	private String fullname;
@@ -14,22 +17,27 @@ public class PanCard {
 	
 	private LocalDate dob;
 
+	@CustomValidateField(maxLength = 50, type = DocumentFields.ALPHABETICAL)
 	public String getFullname() {
 		return fullname;
 	}
 
+	@CustomValidateField(maxLength = 50, type = DocumentFields.ALPHABETICAL)
 	public String getFatherName() {
 		return fatherName;
 	}
 
+	@CustomValidateField(maxLength = 10, type = DocumentFields.ALPHANUMERIC)
 	public String getPanNumber() {
 		return panNumber;
 	}
 
+	@CustomValidateField(maxLength = 50, type = DocumentFields.ALPHABETICAL)
 	public String getIssuedBy() {
 		return issuedBy;
 	}
 
+	@CustomValidateField(type = DocumentFields.DATE)
 	public LocalDate getDob() {
 		return dob;
 	}

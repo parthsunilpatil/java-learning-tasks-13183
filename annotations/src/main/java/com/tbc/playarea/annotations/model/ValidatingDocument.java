@@ -6,11 +6,13 @@ public class ValidatingDocument {
 	private CustomValidateField fieldAnnotation;
 	private Object content;
 	private String message;
+	private boolean validation_status;
 	public ValidatingDocument(CustomValidateField fieldAnnotation, Object content, String message) {
 		super();
 		this.fieldAnnotation = fieldAnnotation;
 		this.content = content;
 		this.message = message;
+		this.setValidation_status(false);
 	}
 	public CustomValidateField getFieldAnnotation() {
 		return fieldAnnotation;
@@ -21,8 +23,19 @@ public class ValidatingDocument {
 	public String getmessage() {
 		return message;
 	}
-	public ValidatingDocument setMessage(String message) {
+	public void setMessageAndStatus(String message, boolean validation_status) {
 		this.message = message;
-		return this;
+		this.validation_status = validation_status;
+	}
+	public boolean isValidation_status() {
+		return validation_status;
+	}
+	public void setValidation_status(boolean validation_status) {
+		this.validation_status = validation_status;
+	}
+	@Override
+	public String toString() {
+		return "ValidatingDocument [fieldAnnotation=" + fieldAnnotation + ", content=" + content + ", message="
+				+ message + ", validation_status=" + validation_status + "]";
 	}
 }

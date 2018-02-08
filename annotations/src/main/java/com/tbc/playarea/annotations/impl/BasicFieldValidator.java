@@ -2,63 +2,44 @@ package com.tbc.playarea.annotations.impl;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.Map;
-import java.util.Map.Entry;
+import java.time.LocalDate;
+import java.util.List;
 
 import com.tbc.playarea.annotations.CustomValidateField;
 import com.tbc.playarea.annotations.DocumentFields;
 import com.tbc.playarea.annotations.model.ValidatingDocument;
 
-public abstract class BasicFieldValidator {
-	protected Map<Method, ValidatingDocument> methodsMap;
+public class BasicFieldValidator extends BasicValidator {
 	
-	public void addMethodsToValidate(Object object) {
-		Method[] methods = object.getClass().getMethods();
-		for(Method method : methods) {
-			if(method.isAnnotationPresent(CustomValidateField.class)) {
-				try {
-					methodsMap.put(method, new ValidatingDocument(method.getAnnotation(CustomValidateField.class), method.invoke(object), "Pending"));
-				} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+	@Override
+	public boolean validateOnMethods(Object... objects) {
+		boolean valid = true;
+		for(Object object : objects) {
+			Method[] methods = object.getClass().getMethods();
+			for(Method method : methods) {
+				if(method.isAnnotationPresent(CustomValidateField.class)) {
+					try {
+						ValidatingDocument document = new ValidatingDocument(method.getAnnotation(CustomValidateField.class)
+								, method.invoke(object), "Pending Validation");
+						valid = (valid) ? basicValidate(document) : false;
+					} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 				}
 			}
 		}
+		return valid;
 	}
 	
-	public boolean validateBasic() {
-		for(Entry<Method, ValidatingDocument> entry : methodsMap.entrySet()) {
-			CustomValidateField annotation = entry.getValue().getFieldAnnotation();
-			Object content = entry.getValue().getContent();
-			if(isStringType(annotation.type())) {
-				if(!(content instanceof String)) {
-					methodsMap.put(entry.getKey(), entry.getValue().setMessage("Content must be of type String!"));
-					return false;
-				}
-				String strContent = (String) content;
-				if(!checkLengthConstraints(annotation, strContent)) {
-					methodsMap.put(entry.getKey(), entry.getValue().setMessage("Content must be at most, " + (annotation.maxLength() - annotation.minLength()) + " long!"));
-					return false;
-				}
-				if(DocumentFields.ALPHABETICAL.equals(annotation.type()) && !strContent.matches("[a-zA-Z]+")) {
-					methodsMap.put(entry.getKey(), entry.getValue().setMessage("Content must not contain numbers or special characters!"));
-					return false;
-				}
-			}
-			if(isIntegerType(annotation.type())) {
-				if(!(content instanceof Integer)) {
-					methodsMap.put(entry.getKey(), entry.getValue().setMessage("Content must be of type Integer!"));
-					return false;
-				}
-			}
-			if(isFloatingType(annotation.type())) {
-				if(!(content instanceof Double)) {
-					methodsMap.put(entry.getKey(), entry.getValue().setMessage("Content must be of type Double!"));
-					return false;
-				}
-			}
-		}
-		return true;
+	protected boolean isListType(DocumentFields type) {
+		// TODO Auto-generated method stub
+		return DocumentFields.LIST.equals(type);
+	}
+
+	protected boolean checkDateConstraints(CustomValidateField annotation, LocalDate dateContent) {
+		// TODO Auto-generated method stub
+		return dateContent.isAfter(LocalDate.MIN) && dateContent.isBefore(LocalDate.MAX);
 	}
 
 	protected boolean checkLengthConstraints(CustomValidateField annotation, String strContent) {
@@ -84,6 +65,75 @@ public abstract class BasicFieldValidator {
 	
 	protected boolean isDateType(DocumentFields type) {
 		return DocumentFields.DATE.equals(type);
+	}
+	
+	private boolean basicValidate(ValidatingDocument document) {
+
+		CustomValidateField annotation = document.getFieldAnnotation();
+		Object content = document.getContent();
+		if(isStringType(annotation.type())) {
+			if(!(content instanceof String)) {
+				document.setMessageAndStatus("Content must be of type String!", false);
+				errorMessages.add(document.toString());
+				return false;
+			}
+			String strContent = (String) content;
+			if(!checkLengthConstraints(annotation, strContent)) {
+				document.setMessageAndStatus("Content must be at most, " + (annotation.maxLength() - annotation.minLength()) + " long!", false);
+				errorMessages.add(document.toString());
+				return false;
+			}
+			if(DocumentFields.ALPHABETICAL.equals(annotation.type()) && !strContent.matches("[a-zA-Z]+")) {
+				document.setMessageAndStatus("Content must not contain numbers or special characters!", false);
+				errorMessages.add(document.toString());
+				return false;
+			}
+		}
+		if(isIntegerType(annotation.type())) {
+			if(!(content instanceof Integer)) {
+				document.setMessageAndStatus("Content must be of type Integer!", false);
+				errorMessages.add(document.toString());
+				return false;
+			}
+		}
+		if(isFloatingType(annotation.type())) {
+			if(!(content instanceof Double)) {
+				document.setMessageAndStatus("Content must be of type Double!", false);
+				errorMessages.add(document.toString());
+				return false;
+			}
+		}
+		if(isListType(annotation.type())) {
+			if(!(content instanceof List)) {
+				document.setMessageAndStatus("Content must be of type List!", false);
+				errorMessages.add(document.toString());
+				return false;
+			}
+			
+			@SuppressWarnings("unchecked")
+			List<Object> listContent = (List<Object>) content;
+			for(Object object : listContent) 
+				validateOnMethods(object);
+		}
+		if(isDateType(annotation.type())) {
+			if(!(content instanceof LocalDate)) {
+				document.setMessageAndStatus("Content must be of type LocalDate!", false);
+				errorMessages.add(document.toString());
+				return false;
+			}
+			LocalDate dateContent = (LocalDate) content;
+			if(!checkDateConstraints(annotation, dateContent)) {
+				document.setMessageAndStatus("Invalid Date!", false);
+				errorMessages.add(document.toString());
+				return false;
+			}
+		}
+		document.setMessageAndStatus("Validation Passed!", true);
+		return true;
+	}
+
+	public BasicFieldValidator(List<String> errorMessages) {
+		super(errorMessages);
 	}
 
 }

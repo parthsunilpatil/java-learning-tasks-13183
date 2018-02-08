@@ -2,6 +2,9 @@ package com.tbc.playarea.annotations.model;
 
 import java.time.LocalDateTime;
 
+import com.tbc.playarea.annotations.CustomValidateField;
+import com.tbc.playarea.annotations.DocumentFields;
+
 public class Transaction {
 	
 	private String id;
@@ -12,18 +15,22 @@ public class Transaction {
 	
 	private LocalDateTime transactionTime;
 
+	@CustomValidateField(minLength = 15, maxLength = 15, type = DocumentFields.ALPHANUMERIC)
 	public String getId() {
 		return id;
 	}
 
+	@CustomValidateField(type = DocumentFields.ALPHABETICAL)
 	public String getDescription() {
 		return description;
 	}
 
+	@CustomValidateField(type = DocumentFields.REAL_NUMBER)
 	public double getAmount() {
 		return amount;
 	}
 
+	@CustomValidateField(type = DocumentFields.DATE)
 	public LocalDateTime getTransactionTime() {
 		return transactionTime;
 	}

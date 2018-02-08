@@ -29,6 +29,7 @@ public class BankStatement {
 		return customerName;
 	}
 
+	@CustomValidateField(type = DocumentFields.LIST)
 	public List<Transaction> getTransactions() {
 		return transactions;
 	}
