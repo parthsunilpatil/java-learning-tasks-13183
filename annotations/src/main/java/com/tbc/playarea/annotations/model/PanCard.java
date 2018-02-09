@@ -39,7 +39,6 @@ public class PanCard {
 		return issuedBy;
 	}
 
-	@ConsistencyCheck
 	@CustomValidateField(type = DocumentFields.DATE)
 	public LocalDate getDob() {
 		return dob;
@@ -90,6 +89,8 @@ public class PanCard {
 			super();
 			this.fullname = fullname;
 			this.panNumber = panNumber;
+			this.issuedBy = null;
+			this.dob = null;
 		}
 		
 		public PanCard build() {

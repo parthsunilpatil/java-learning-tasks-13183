@@ -32,8 +32,7 @@ public class Aadhar {
 	public String getAddress() {
 		return address;
 	}
-
-	@ConsistencyCheck
+	
 	@CustomValidateField(type = DocumentFields.DATE)
 	public LocalDate getDob() {
 		return dob;
@@ -59,6 +58,8 @@ public class Aadhar {
 		public AadharBuilder(String fullname, String address) {
 			this.fullname = fullname;
 			this.address = address;
+			this.gender = null;
+			this.dob = null;
 		}
 
 		public AadharBuilder setGender(String gender) {

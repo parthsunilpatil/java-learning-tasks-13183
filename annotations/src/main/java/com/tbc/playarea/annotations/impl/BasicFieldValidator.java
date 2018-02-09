@@ -7,7 +7,7 @@ import java.util.List;
 
 import com.tbc.playarea.annotations.CustomValidateField;
 import com.tbc.playarea.annotations.DocumentFields;
-import com.tbc.playarea.annotations.model.ValidatingDocument;
+import com.tbc.playarea.annotations.model.FieldValidationObject;
 
 public class BasicFieldValidator extends BasicValidator {
 	
@@ -19,7 +19,7 @@ public class BasicFieldValidator extends BasicValidator {
 			for(Method method : methods) {
 				if(method.isAnnotationPresent(CustomValidateField.class)) {
 					try {
-						ValidatingDocument document = new ValidatingDocument(method.getAnnotation(CustomValidateField.class)
+						FieldValidationObject document = new FieldValidationObject(method.getAnnotation(CustomValidateField.class)
 								, method.invoke(object), "Pending Validation");
 						valid = (valid) ? basicValidate(document) : false;
 					} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
@@ -52,7 +52,8 @@ public class BasicFieldValidator extends BasicValidator {
 		return DocumentFields.ALPHABETICAL.equals(type) 
 				|| DocumentFields.ALPHANUMERIC.equals(type) 
 				|| DocumentFields.GENDER.equals(type)
-				|| DocumentFields.EMAIL.equals(type);
+				|| DocumentFields.EMAIL.equals(type)
+				|| DocumentFields.NUMERIC_STRING.equals(type);
 	}
 	
 	protected boolean isIntegerType(DocumentFields type) {
@@ -67,24 +68,29 @@ public class BasicFieldValidator extends BasicValidator {
 		return DocumentFields.DATE.equals(type);
 	}
 	
-	private boolean basicValidate(ValidatingDocument document) {
+	private boolean basicValidate(FieldValidationObject document) {
 
 		CustomValidateField annotation = document.getFieldAnnotation();
 		Object content = document.getContent();
 		if(isStringType(annotation.type())) {
-			if(!(content instanceof String)) {
+			if(content != null && !(content instanceof String)) {
 				document.setMessageAndStatus("Content must be of type String!", false);
 				errorMessages.add(document.toString());
 				return false;
 			}
 			String strContent = (String) content;
-			if(!checkLengthConstraints(annotation, strContent)) {
+			if(content != null && !checkLengthConstraints(annotation, strContent)) {
 				document.setMessageAndStatus("Content must be at most, " + (annotation.maxLength() - annotation.minLength()) + " long!", false);
 				errorMessages.add(document.toString());
 				return false;
 			}
 			if(DocumentFields.ALPHABETICAL.equals(annotation.type()) && !strContent.matches("[a-zA-Z]+")) {
 				document.setMessageAndStatus("Content must not contain numbers or special characters!", false);
+				errorMessages.add(document.toString());
+				return false;
+			}
+			if(DocumentFields.NUMERIC_STRING.equals(annotation.type()) && !strContent.matches("[0-9]+")) {
+				document.setMessageAndStatus("Content must contain be a 10 digit number containing digits from 0 to 9!", false);
 				errorMessages.add(document.toString());
 				return false;
 			}

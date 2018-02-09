@@ -16,7 +16,7 @@ public class BankStatement {
 	
 	private String address;
 	
-	private int mobileNumber;
+	private String mobileNumber;
 	
 	private String email;
 
@@ -42,8 +42,8 @@ public class BankStatement {
 		return address;
 	}
 
-	@CustomValidateField(minLength = 10, maxLength = 10, type = DocumentFields.INTEGER)
-	public int getMobileNumber() {
+	@CustomValidateField(minLength = 10, maxLength = 10, type = DocumentFields.NUMERIC_STRING)
+	public String getMobileNumber() {
 		return mobileNumber;
 	}
 	
@@ -71,7 +71,7 @@ public class BankStatement {
 		
 		private String address;
 		
-		private int mobileNumber;
+		private String mobileNumber;
 		
 		private String email;
 
@@ -80,6 +80,9 @@ public class BankStatement {
 			this.accountNumber = accountNumber;
 			this.customerName = customerName;
 			this.address = address;
+			this.transactions = null;
+			this.mobileNumber = null;
+			this.email = null;
 		}
 
 		public BankStatementBuilder setTransactions(List<Transaction> transactions) {
@@ -87,7 +90,7 @@ public class BankStatement {
 			return this;
 		}
 
-		public BankStatementBuilder setMobileNumber(int mobileNumber) {
+		public BankStatementBuilder setMobileNumber(String mobileNumber) {
 			this.mobileNumber = mobileNumber;
 			return this;
 		}
