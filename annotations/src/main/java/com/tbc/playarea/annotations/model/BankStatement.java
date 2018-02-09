@@ -2,6 +2,7 @@ package com.tbc.playarea.annotations.model;
 
 import java.util.List;
 
+import com.tbc.playarea.annotations.ConsistencyCheck;
 import com.tbc.playarea.annotations.CustomValidateField;
 import com.tbc.playarea.annotations.DocumentFields;
 
@@ -24,6 +25,7 @@ public class BankStatement {
 		return accountNumber;
 	}
 
+	@ConsistencyCheck
 	@CustomValidateField(maxLength = 50, type = DocumentFields.ALPHABETICAL)
 	public String getCustomerName() {
 		return customerName;
@@ -34,6 +36,7 @@ public class BankStatement {
 		return transactions;
 	}
 
+	@ConsistencyCheck
 	@CustomValidateField(maxLength = 100, type = DocumentFields.ALPHANUMERIC)
 	public String getAddress() {
 		return address;

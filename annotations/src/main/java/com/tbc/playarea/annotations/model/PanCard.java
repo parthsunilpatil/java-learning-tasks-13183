@@ -2,6 +2,7 @@ package com.tbc.playarea.annotations.model;
 
 import java.time.LocalDate;
 
+import com.tbc.playarea.annotations.ConsistencyCheck;
 import com.tbc.playarea.annotations.CustomValidateField;
 import com.tbc.playarea.annotations.DocumentFields;
 
@@ -17,6 +18,7 @@ public class PanCard {
 	
 	private LocalDate dob;
 
+	@ConsistencyCheck
 	@CustomValidateField(maxLength = 50, type = DocumentFields.ALPHABETICAL)
 	public String getFullname() {
 		return fullname;
@@ -37,6 +39,7 @@ public class PanCard {
 		return issuedBy;
 	}
 
+	@ConsistencyCheck
 	@CustomValidateField(type = DocumentFields.DATE)
 	public LocalDate getDob() {
 		return dob;

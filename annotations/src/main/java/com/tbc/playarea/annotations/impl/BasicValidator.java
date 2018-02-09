@@ -12,5 +12,5 @@ public abstract class BasicValidator {
 		this.nextValidator = null;
 	}
 
-	public abstract boolean validateOnMethods(Object... object);
+	public abstract boolean validateOnMethods(Object... objects);
 }

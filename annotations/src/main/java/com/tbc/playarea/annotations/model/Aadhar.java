@@ -2,6 +2,7 @@ package com.tbc.playarea.annotations.model;
 
 import java.time.LocalDate;
 
+import com.tbc.playarea.annotations.ConsistencyCheck;
 import com.tbc.playarea.annotations.CustomValidateField;
 import com.tbc.playarea.annotations.DocumentFields;
 
@@ -15,6 +16,7 @@ public class Aadhar {
 	
 	private LocalDate dob;
 
+	@ConsistencyCheck
 	@CustomValidateField(maxLength = 50, type = DocumentFields.ALPHABETICAL)
 	public String getFullname() {
 		return fullname;
@@ -25,11 +27,13 @@ public class Aadhar {
 		return gender;
 	}
 
+	@ConsistencyCheck
 	@CustomValidateField(maxLength = 100, type = DocumentFields.ALPHANUMERIC)
 	public String getAddress() {
 		return address;
 	}
 
+	@ConsistencyCheck
 	@CustomValidateField(type = DocumentFields.DATE)
 	public LocalDate getDob() {
 		return dob;
