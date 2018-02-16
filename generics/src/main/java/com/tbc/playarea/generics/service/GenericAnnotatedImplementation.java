@@ -11,7 +11,7 @@ public interface GenericAnnotatedImplementation {
 	}
 	
 	default String getType() {
-		for(Field f : this.getClass().getDeclaredFields()) {
+		for(Field f : getDeclaringClass().getDeclaredFields()) {
 			try {
 				if(f.isEnumConstant() && f.get(this) == null) {
 					return f.getAnnotation(AnnotatedEnumType.class).value();
@@ -23,6 +23,8 @@ public interface GenericAnnotatedImplementation {
 		}
 		throw new IllegalStateException();
 	}
+	
+	Class<? extends GenericAnnotatedImplementation> getDeclaringClass();
 	
 	static <T extends Enum<T>&GenericAnnotatedImplementation> T fromValue(String value, Class<T> type) {
 		for(T t : EnumSet.allOf(type)) {

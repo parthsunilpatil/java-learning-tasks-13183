@@ -45,6 +45,12 @@ public class AutoSuggest {
 			driver.getTrie().autoSuggest("Ja").stream().forEach(t -> {
 				System.out.println(wordCountMap.get(t));
 			});
+			
+			System.out.println("Second Run:");
+			
+			driver.getTrie().autoSuggest("Ja").stream().forEach(t -> {
+				System.out.println(wordCountMap.get(t));
+			});
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

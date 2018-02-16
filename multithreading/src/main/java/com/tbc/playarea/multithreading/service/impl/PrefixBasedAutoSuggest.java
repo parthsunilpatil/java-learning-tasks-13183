@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
 import com.tbc.playarea.multithreading.WordCount;
+import com.tbc.playarea.multithreading.dao.Cacheable;
 import com.tbc.playarea.multithreading.service.BasicAutoSuggest;
 
 public class PrefixBasedAutoSuggest extends BasicAutoSuggest {
@@ -18,6 +19,7 @@ public class PrefixBasedAutoSuggest extends BasicAutoSuggest {
 		super(fileName);
 	}
 
+	@Cacheable
 	public Collection<String> autoSuggestTrie(String prefix, Trie root) {
 		Trie node = root;
 		for(char c : prefix.toCharArray()) {

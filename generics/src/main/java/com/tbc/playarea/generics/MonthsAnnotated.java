@@ -16,7 +16,8 @@ public enum MonthsAnnotated implements GenericAnnotatedImplementation {
 	@AnnotatedEnumType("november") NOVEMBER,
 	@AnnotatedEnumType("december") DECEMBER;
 	
+	
 	public static MonthsAnnotated fromValue(String value) {
-		return MonthsAnnotated.fromValue(value);
+		return GenericAnnotatedImplementation.fromValue(value, MonthsAnnotated.class);
 	}
 }

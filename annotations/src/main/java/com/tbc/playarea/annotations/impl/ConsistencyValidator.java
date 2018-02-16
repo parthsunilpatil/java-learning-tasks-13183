@@ -5,7 +5,6 @@ import java.lang.reflect.Method;
 import java.util.List;
 
 import com.tbc.playarea.annotations.ConsistencyCheck;
-import com.tbc.playarea.annotations.CustomValidateField;
 import com.tbc.playarea.annotations.model.ConsistencyCheckObject;
 
 public class ConsistencyValidator extends BasicValidator { 
@@ -16,13 +15,12 @@ public class ConsistencyValidator extends BasicValidator {
 
 	@Override
 	public boolean validateOnMethods(Object... objects) {
-		
 		boolean valid = true;
 		ConsistencyCheckObject obj = null, lastObj = null;
 		for(Object object : objects) {
 			Method[] methods = object.getClass().getMethods();
 			for(Method method : methods) {
-				if(method.isAnnotationPresent(CustomValidateField.class)) {
+				if(method.isAnnotationPresent(ConsistencyCheck.class)) {
 					try {
 						obj = new ConsistencyCheckObject(method.getAnnotation(ConsistencyCheck.class)
 								, method.invoke(object), "Pending Validation");

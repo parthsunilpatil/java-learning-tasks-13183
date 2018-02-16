@@ -16,9 +16,7 @@ public class KYCValidationDriver {
 		List<String> errorMessages = new ArrayList<>();
 		BasicValidator fieldValidator = new BasicFieldValidator(errorMessages);
 		BasicValidator consistencyValidator = new ConsistencyValidator(errorMessages);
-		boolean valid = false;
-		if((valid = fieldValidator.validateOnMethods(aadhar, panCard, bankStatement)))
-			valid = consistencyValidator.validateOnMethods(aadhar, panCard, bankStatement);
-		return valid;
+		fieldValidator.setNextValidator(consistencyValidator);
+		return fieldValidator.validate(aadhar, panCard, bankStatement);
 	}
 }

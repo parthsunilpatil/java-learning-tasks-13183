@@ -10,6 +10,8 @@ import java.util.Map.Entry;
 
 import org.apache.commons.text.similarity.LevenshteinDistance;
 
+import com.tbc.playarea.multithreading.dao.Cacheable;
+
 public class Trie {
 	protected final Map<Character, Trie> children;
 	protected String value;
@@ -54,7 +56,9 @@ public class Trie {
 		return node.value;
 	}
 	
+	@Cacheable
 	public Collection<String> autoSuggest(String prefix) {
+		System.out.println("Executing Auto Suggest!");
 		Trie node = this;
 		for(char c : prefix.toCharArray()) {
 			if(!node.children.containsKey(c)) 
