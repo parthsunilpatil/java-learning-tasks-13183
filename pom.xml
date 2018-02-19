@@ -16,7 +16,6 @@
   	<module>annotations</module>
   	<module>generics</module>
   	<module>algorithms</module>
-  	<module>observer</module>
   	<module>blog-app</module>
   </modules>
 </project>
