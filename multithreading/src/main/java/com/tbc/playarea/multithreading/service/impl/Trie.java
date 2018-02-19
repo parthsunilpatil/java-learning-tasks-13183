@@ -84,7 +84,7 @@ public class Trie {
 		List<String> results = new LinkedList<>();
 		if(this.terminal) {
 			int levenshteinDist = LevenshteinDistance.getDefaultInstance().apply(prefix, this.value);
-			if(levenshteinDist > this.value.length())
+			if(levenshteinDist >= 0 && levenshteinDist <= this.value.length())
 				results.add(this.value);
 		}
 		for(Entry<Character, Trie> entry : children.entrySet()) {

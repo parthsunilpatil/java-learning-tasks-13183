@@ -42,13 +42,14 @@ public class AutoSuggest {
 			WordCountForkJoin.countWords(wordCountMap, folderName);
 			AutoSuggest driver = new AutoSuggest(wordCountMap);
 			Thread.sleep(500);
-			driver.getTrie().autoSuggest("Ja").stream().forEach(t -> {
+			Trie trie = driver.getTrie();
+			trie.autoSuggest("Ja").stream().forEach(t -> {
 				System.out.println(wordCountMap.get(t));
 			});
 			
 			System.out.println("Second Run:");
 			
-			driver.getTrie().autoSuggest("Ja").stream().forEach(t -> {
+			trie.autoSuggest("Ja").stream().forEach(t -> {
 				System.out.println(wordCountMap.get(t));
 			});
 		} catch (InterruptedException e) {

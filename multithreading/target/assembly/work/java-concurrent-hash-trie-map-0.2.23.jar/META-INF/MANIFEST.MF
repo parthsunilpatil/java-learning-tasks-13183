@@ -1,0 +1,15 @@
+Manifest-Version: 1.0
+Bnd-LastModified: 1411037482583
+Build-Jdk: 1.6.0_65
+Built-By: roman
+Bundle-Description: Java implementation of a concurrent trie hash map fr
+ om Scala collections library
+Bundle-License: http://www.apache.org/licenses/LICENSE-2.0.txt
+Bundle-ManifestVersion: 2
+Bundle-Name: com.github.romix.java-concurrent-hash-trie-map
+Bundle-SymbolicName: com.github.romix.java-concurrent-hash-trie-map
+Bundle-Version: 0.2.23
+Created-By: Apache Maven Bundle Plugin
+Export-Package: com.romix.scala.collection.concurrent;uses:="com.romix.s
+ cala";version="0.2.23",com.romix.scala;version="0.2.23"
+Tool: Bnd-2.1.0.20130426-122213
