@@ -26,6 +26,18 @@ public class Article<T> {
 		return articleContent;
 	}
 	
+	public void setTitle(String title) {
+		this.title = title;
+	}
+	public void setSubject(String subject) {
+		this.subject = subject;
+	}
+	public void setAbstractText(String abstractText) {
+		this.abstractText = abstractText;
+	}
+	public void setArticleContent(T articleContent) {
+		this.articleContent = articleContent;
+	}
 	@Override
 	public String toString() {
 		return "Article [title=" + title + ", subject=" + subject + ", abstractText=" + abstractText

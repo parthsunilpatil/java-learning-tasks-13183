@@ -136,15 +136,15 @@ public class SieveOfEratosthenes {
 	
 	public static void main(String[] args) {
 		long s = System.currentTimeMillis();
-		System.out.println(SieveOfEratosthenes.sieve(100));
+		System.out.println(SieveOfEratosthenes.sieve(1000));
 		long e = System.currentTimeMillis();
 		System.out.println("Time taken: " + (e - s) + " milliseconds");
 		s = System.currentTimeMillis();
-		SieveOfEratosthenes.segmentedSieve(100);
+		SieveOfEratosthenes.segmentedSieve(1000);
 		e = System.currentTimeMillis();
 		System.out.println("Time taken: " + (e - s) + " milliseconds");		
 		s = System.currentTimeMillis();
-		System.out.println(SieveOfEratosthenes.eulerSieve(100));;
+		System.out.println(SieveOfEratosthenes.eulerSieve(1000));
 		e = System.currentTimeMillis();
 		System.out.println("Time taken: " + (e - s) + " milliseconds");
 	}

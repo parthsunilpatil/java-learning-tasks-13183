@@ -24,6 +24,18 @@ public class WhitePaper<T> {
 		return content;
 	}
 
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public void setAbstractText(String abstractText) {
+		this.abstractText = abstractText;
+	}
+
+	public void setContent(T content) {
+		this.content = content;
+	}
+
 	public static class WhitePaperBuilder<T> {
 		private String title;
 		private String abstractText;

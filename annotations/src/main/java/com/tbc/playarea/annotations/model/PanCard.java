@@ -5,6 +5,8 @@ import java.time.LocalDate;
 import com.tbc.playarea.annotations.ConsistencyCheck;
 import com.tbc.playarea.annotations.CustomValidateField;
 import com.tbc.playarea.annotations.DocumentFields;
+import com.tbc.playarea.annotations.KYCDate;
+import com.tbc.playarea.annotations.KYCString;
 
 public class PanCard {
 	
@@ -20,26 +22,31 @@ public class PanCard {
 
 	@ConsistencyCheck
 	@CustomValidateField(maxLength = 50, type = DocumentFields.ALPHABETICAL)
+	@KYCString(maxLength = 50, type = DocumentFields.ALPHABETICAL)
 	public String getFullname() {
 		return fullname;
 	}
 
 	@CustomValidateField(maxLength = 50, type = DocumentFields.ALPHABETICAL)
+	@KYCString(maxLength = 50, type = DocumentFields.ALPHABETICAL)
 	public String getFatherName() {
 		return fatherName;
 	}
 
 	@CustomValidateField(maxLength = 10, type = DocumentFields.ALPHANUMERIC)
+	@KYCString(maxLength = 10, type = DocumentFields.ALPHANUMERIC)
 	public String getPanNumber() {
 		return panNumber;
 	}
 
 	@CustomValidateField(maxLength = 50, type = DocumentFields.ALPHABETICAL)
+	@KYCString(maxLength = 50, type = DocumentFields.ALPHABETICAL)
 	public String getIssuedBy() {
 		return issuedBy;
 	}
 
 	@CustomValidateField(type = DocumentFields.DATE)
+	@KYCDate(notBefore = "1969-01-01", notAfter = "2018-12-31")
 	public LocalDate getDob() {
 		return dob;
 	}

@@ -21,6 +21,16 @@ public class Comment<T> {
 		this.comment = builder.comment;
 	}
 	
+	public void setTitle(String title) {
+		this.title = title;
+	}
+	public void setCommentStr(String commentStr) {
+		this.commentStr = commentStr;
+	}
+	public void setComment(T comment) {
+		this.comment = comment;
+	}
+
 	public static class CommentBuilder<T> {
 		private String title;
 		private String commentStr;

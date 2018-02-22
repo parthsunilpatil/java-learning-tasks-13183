@@ -9,7 +9,7 @@ import com.tbc.playarea.annotations.DocumentFields;
 import com.tbc.playarea.annotations.model.Aadhar;
 
 
-public class DocumentFieldValidator {
+public class DocumentValidator {
 	
 	public void handle(Object object) {
 		try {
@@ -65,7 +65,7 @@ public class DocumentFieldValidator {
 	}
 	
 	public static void main(String[] args) {
-		DocumentFieldValidator parser = new DocumentFieldValidator();
+		DocumentValidator parser = new DocumentValidator();
 		Aadhar aadhar = new Aadhar.AadharBuilder("abc", "abc123").setGender("X").setDob(LocalDate.MIN).build();
 		System.out.println(aadhar);
 		parser.handle(aadhar);

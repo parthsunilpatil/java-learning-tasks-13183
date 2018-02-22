@@ -5,6 +5,8 @@ import java.time.LocalDate;
 import com.tbc.playarea.annotations.ConsistencyCheck;
 import com.tbc.playarea.annotations.CustomValidateField;
 import com.tbc.playarea.annotations.DocumentFields;
+import com.tbc.playarea.annotations.KYCDate;
+import com.tbc.playarea.annotations.KYCString;
 
 public class Aadhar {
 	
@@ -18,22 +20,26 @@ public class Aadhar {
 
 	@ConsistencyCheck
 	@CustomValidateField(maxLength = 50, type = DocumentFields.ALPHABETICAL)
+	@KYCString(maxLength = 50, type = DocumentFields.ALPHABETICAL)
 	public String getFullname() {
 		return fullname;
 	}
 
 	@CustomValidateField(type = DocumentFields.GENDER)
+	@KYCString(minLength = 4, maxLength = 6, type = DocumentFields.GENDER)
 	public String getGender() {
 		return gender;
 	}
 
 	@ConsistencyCheck
 	@CustomValidateField(maxLength = 100, type = DocumentFields.ALPHANUMERIC)
+	@KYCString(maxLength = 100)
 	public String getAddress() {
 		return address;
 	}
 	
 	@CustomValidateField(type = DocumentFields.DATE)
+	@KYCDate(notBefore = "1969-01-01", notAfter = "2018-12-31")
 	public LocalDate getDob() {
 		return dob;
 	}

@@ -17,5 +17,6 @@
   	<module>generics</module>
   	<module>algorithms</module>
   	<module>blog-app</module>
+  	<module>rxjava</module>
   </modules>
 </project>
