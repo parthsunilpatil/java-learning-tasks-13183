@@ -2,32 +2,34 @@ package com.tbc.playarea.annotations.impl;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.List;
 
+import com.tbc.playarea.annotations.BasicValidationDocument;
 import com.tbc.playarea.annotations.ConsistencyCheck;
-import com.tbc.playarea.annotations.model.ConsistencyCheckObject;
+import com.tbc.playarea.annotations.ErrorReporter;
 
 public class ConsistencyValidator extends BasicValidator { 
 
-	public ConsistencyValidator(List<String> errorMessages) {
-		super(errorMessages);
+	public ConsistencyValidator() {
+		super();
+		ConsistencyValidationErrorReporter errorReporter = new ConsistencyValidationErrorReporter();
+		setErrorReporter(errorReporter);
 	}
 
 	@Override
 	public boolean validateOnMethods(Object... objects) {
 		boolean valid = true;
-		ConsistencyCheckObject obj = null, lastObj = null;
+		BasicValidationDocument obj = null, lastObj = null;
 		for(Object object : objects) {
 			Method[] methods = object.getClass().getMethods();
 			for(Method method : methods) {
 				if(method.isAnnotationPresent(ConsistencyCheck.class)) {
 					try {
-						obj = new ConsistencyCheckObject(method.getAnnotation(ConsistencyCheck.class)
+						obj = new ValidationDocument<ConsistencyCheck>(method.getAnnotation(ConsistencyCheck.class)
 								, method.invoke(object), "Pending Validation");
 						if(lastObj != null) {
 							if(!lastObj.getContent().equals(obj.getContent())) {
 								obj.setMessageAndStatus("Content in previous Object: " + lastObj + " is not Consistent with current object" + obj, false);
-								errorMessages.add(obj.toString());
+								errorReporter.addErrorMessage(obj);
 								valid = false;
 							}
 						}
@@ -41,5 +43,10 @@ public class ConsistencyValidator extends BasicValidator {
 			}
 		}
 		return valid;
+	}
+
+	@Override
+	public void setErrorReporter(ErrorReporter errorReporter) {
+		super.errorReporter = errorReporter;
 	}
 }

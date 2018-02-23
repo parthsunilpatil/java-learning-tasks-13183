@@ -1,19 +1,14 @@
 package com.tbc.playarea.annotations.impl;
 
-import java.util.List;
+import com.tbc.playarea.annotations.ErrorReporter;
 
 public abstract class BasicValidator {
-	protected List<String> errorMessages;
 	protected BasicValidator nextValidator;
+	protected ErrorReporter errorReporter;
 	
-	public BasicValidator(List<String> errorMessages) {
+	public BasicValidator() {
 		super();
-		this.errorMessages = errorMessages;
 		this.nextValidator = null;
-	}
-	
-	public List<String> getErrorMessages() {
-		return errorMessages;
 	}
 
 	public void setNextValidator(BasicValidator nextValidator) {
@@ -28,4 +23,5 @@ public abstract class BasicValidator {
 	}
 
 	public abstract boolean validateOnMethods(Object... objects);
+	public abstract void setErrorReporter(ErrorReporter errorReporter);
 }

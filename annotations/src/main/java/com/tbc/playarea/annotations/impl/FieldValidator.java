@@ -5,6 +5,7 @@ import java.lang.reflect.Method;
 import java.util.List;
 
 import com.tbc.playarea.annotations.CustomValidateField;
+import com.tbc.playarea.annotations.ErrorReporter;
 import com.tbc.playarea.annotations.KYCDate;
 import com.tbc.playarea.annotations.KYCList;
 import com.tbc.playarea.annotations.KYCNumber;
@@ -26,7 +27,7 @@ public class FieldValidator extends BasicValidator {
 									method.invoke(object), "Pending Validation");
 							StringFieldValidator validator = new StringFieldValidator(document);
 							if(!validator.validate()) {
-								errorMessages.add(document.toString());
+								errorReporter.addErrorMessage(document);
 								valid = false;
 							}
 						} else if(method.isAnnotationPresent(KYCDate.class)) {
@@ -34,7 +35,7 @@ public class FieldValidator extends BasicValidator {
 									method.invoke(object), "Pending Validation");
 							DateFieldValidator validator = new DateFieldValidator(document);
 							if(!validator.validate()) {
-								errorMessages.add(document.toString());
+								errorReporter.addErrorMessage(document);
 								valid = false;
 							}
 						} else if(method.isAnnotationPresent(KYCNumber.class)) {
@@ -42,7 +43,7 @@ public class FieldValidator extends BasicValidator {
 									method.invoke(object), "Pending Validation");
 							NumberFieldValidator validator = new NumberFieldValidator(document);
 							if(!validator.validate()) {
-								errorMessages.add(document.toString());
+								errorReporter.addErrorMessage(document);
 								valid = false;
 							}
 						} else if(method.isAnnotationPresent(KYCRealNumber.class)) {
@@ -50,7 +51,7 @@ public class FieldValidator extends BasicValidator {
 									method.invoke(object), "Pending Validation");
 							RealNumberFieldValidator validator = new RealNumberFieldValidator(document);
 							if(!validator.validate()) {
-								errorMessages.add(document.toString());
+								errorReporter.addErrorMessage(document);
 								valid = false;
 							}
 						} else if(method.isAnnotationPresent(KYCList.class)) {
@@ -69,8 +70,15 @@ public class FieldValidator extends BasicValidator {
 		return valid;
 	}
 
-	public FieldValidator(List<String> errorMessages) {
-		super(errorMessages);
+	public FieldValidator() {
+		super();
+		FieldValidationErrorReporter errorReporter = new FieldValidationErrorReporter();
+		setErrorReporter(errorReporter);
+	}
+
+	@Override
+	public void setErrorReporter(ErrorReporter errorReporter) {
+		super.errorReporter = errorReporter;
 	}
 
 }
