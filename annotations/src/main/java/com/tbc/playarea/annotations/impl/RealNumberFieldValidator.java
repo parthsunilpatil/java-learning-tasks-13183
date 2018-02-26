@@ -1,6 +1,7 @@
 package com.tbc.playarea.annotations.impl;
 
 import com.tbc.playarea.annotations.BasicFieldValidation;
+import com.tbc.playarea.annotations.BasicValidationDocument;
 import com.tbc.playarea.annotations.KYCRealNumber;
 
 public class RealNumberFieldValidator implements BasicFieldValidation {
@@ -10,9 +11,10 @@ public class RealNumberFieldValidator implements BasicFieldValidation {
 		return document;
 	}
 
-	public RealNumberFieldValidator(ValidationDocument<KYCRealNumber> document) {
+	@SuppressWarnings("unchecked")
+	public RealNumberFieldValidator(BasicValidationDocument document) {
 		super();
-		this.document = document;
+		this.document = (ValidationDocument<KYCRealNumber>) document;
 	}
 
 	@Override

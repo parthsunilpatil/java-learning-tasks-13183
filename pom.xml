@@ -16,7 +16,7 @@
   	<module>annotations</module>
   	<module>generics</module>
   	<module>algorithms</module>
-  	<module>blog-app</module>
   	<module>rxjava</module>
+  	<module>BlogApplication</module>
   </modules>
 </project>

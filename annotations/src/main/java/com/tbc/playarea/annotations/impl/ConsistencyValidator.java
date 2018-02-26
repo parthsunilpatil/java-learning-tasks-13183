@@ -1,4 +1,4 @@
-package com.tbc.playarea.annotations.impl;
+ package com.tbc.playarea.annotations.impl;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -28,7 +28,10 @@ public class ConsistencyValidator extends BasicValidator {
 								, method.invoke(object), "Pending Validation");
 						if(lastObj != null) {
 							if(!lastObj.getContent().equals(obj.getContent())) {
-								obj.setMessageAndStatus("Content in previous Object: " + lastObj + " is not Consistent with current object" + obj, false);
+								obj.setMessageAndStatus("Content in previous Object: " 
+										+ lastObj.getContent() 
+										+ " is not Consistent with current object " 
+										+ obj.getContent(), false);
 								errorReporter.addErrorMessage(obj);
 								valid = false;
 							}
@@ -48,5 +51,10 @@ public class ConsistencyValidator extends BasicValidator {
 	@Override
 	public void setErrorReporter(ErrorReporter errorReporter) {
 		super.errorReporter = errorReporter;
+	}
+
+	@Override
+	public ErrorReporter getErrorReporter() {
+		return errorReporter;
 	}
 }

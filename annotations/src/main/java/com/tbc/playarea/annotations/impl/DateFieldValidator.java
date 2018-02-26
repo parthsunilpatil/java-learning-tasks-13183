@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import com.tbc.playarea.annotations.BasicFieldValidation;
+import com.tbc.playarea.annotations.BasicValidationDocument;
 import com.tbc.playarea.annotations.DocumentFields;
 import com.tbc.playarea.annotations.KYCDate;
 
@@ -15,9 +16,10 @@ public class DateFieldValidator implements BasicFieldValidation {
 		return document;
 	}
 
-	public DateFieldValidator(ValidationDocument<KYCDate> document) {
+	@SuppressWarnings("unchecked")
+	public DateFieldValidator(BasicValidationDocument document) {
 		super();
-		this.document = document;
+		this.document = (ValidationDocument<KYCDate>) document;
 	}
 
 	@Override

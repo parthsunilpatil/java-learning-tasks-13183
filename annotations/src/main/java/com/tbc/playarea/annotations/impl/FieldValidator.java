@@ -1,16 +1,13 @@
 package com.tbc.playarea.annotations.impl;
 
+import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.List;
 
+import com.tbc.playarea.annotations.BasicFieldValidation;
+import com.tbc.playarea.annotations.BasicValidationDocument;
 import com.tbc.playarea.annotations.CustomValidateField;
 import com.tbc.playarea.annotations.ErrorReporter;
-import com.tbc.playarea.annotations.KYCDate;
-import com.tbc.playarea.annotations.KYCList;
-import com.tbc.playarea.annotations.KYCNumber;
-import com.tbc.playarea.annotations.KYCRealNumber;
-import com.tbc.playarea.annotations.KYCString;
 
 public class FieldValidator extends BasicValidator {
 	
@@ -22,46 +19,22 @@ public class FieldValidator extends BasicValidator {
 			for(Method method : methods) {
 				if(method.isAnnotationPresent(CustomValidateField.class)) {
 					try {
-						if(method.isAnnotationPresent(KYCString.class)) {
-							ValidationDocument<KYCString> document = new ValidationDocument<KYCString>(method.getAnnotation(KYCString.class), 
-									method.invoke(object), "Pending Validation");
-							StringFieldValidator validator = new StringFieldValidator(document);
-							if(!validator.validate()) {
-								errorReporter.addErrorMessage(document);
-								valid = false;
-							}
-						} else if(method.isAnnotationPresent(KYCDate.class)) {
-							ValidationDocument<KYCDate> document = new ValidationDocument<KYCDate>(method.getAnnotation(KYCDate.class),
-									method.invoke(object), "Pending Validation");
-							DateFieldValidator validator = new DateFieldValidator(document);
-							if(!validator.validate()) {
-								errorReporter.addErrorMessage(document);
-								valid = false;
-							}
-						} else if(method.isAnnotationPresent(KYCNumber.class)) {
-							ValidationDocument<KYCNumber> document = new ValidationDocument<KYCNumber>(method.getAnnotation(KYCNumber.class),
-									method.invoke(object), "Pending Validation");
-							NumberFieldValidator validator = new NumberFieldValidator(document);
-							if(!validator.validate()) {
-								errorReporter.addErrorMessage(document);
-								valid = false;
-							}
-						} else if(method.isAnnotationPresent(KYCRealNumber.class)) {
-							ValidationDocument<KYCRealNumber> document = new ValidationDocument<KYCRealNumber>(method.getAnnotation(KYCRealNumber.class),
-									method.invoke(object), "Pending Validation");
-							RealNumberFieldValidator validator = new RealNumberFieldValidator(document);
-							if(!validator.validate()) {
-								errorReporter.addErrorMessage(document);
-								valid = false;
-							}
-						} else if(method.isAnnotationPresent(KYCList.class)) {
-							@SuppressWarnings("unchecked")
-							List<Object> listContent = (List<Object>) method.invoke(object);
-							for(Object content : listContent) 
-								valid = validateOnMethods(content);
+						CustomValidateField annotation = method.getAnnotation(CustomValidateField.class);
+						BasicValidationDocument document = new ValidationDocument<>(method.getAnnotation(annotation.annotationClass()), 
+								method.invoke(object), "Pending Validation");
+						Constructor<?> constructor = annotation.validationClass().getConstructor(BasicValidationDocument.class);
+						BasicFieldValidation validator = (BasicFieldValidation) constructor.newInstance(document);
+						if(!validator.validate()) {
+							errorReporter.addErrorMessage(document);
+							valid = false;
 						}
 						
-					} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+					} catch (IllegalAccessException 
+							| IllegalArgumentException 
+							| InvocationTargetException 
+							| NoSuchMethodException 
+							| SecurityException 
+							| InstantiationException e) {
 						e.printStackTrace();
 					}
 				}
@@ -79,6 +52,12 @@ public class FieldValidator extends BasicValidator {
 	@Override
 	public void setErrorReporter(ErrorReporter errorReporter) {
 		super.errorReporter = errorReporter;
+	}
+
+	@Override
+	public ErrorReporter getErrorReporter() {
+		// TODO Auto-generated method stub
+		return errorReporter;
 	}
 
 }

@@ -1,6 +1,7 @@
 package com.tbc.playarea.annotations.impl;
 
 import com.tbc.playarea.annotations.BasicFieldValidation;
+import com.tbc.playarea.annotations.BasicValidationDocument;
 import com.tbc.playarea.annotations.DocumentFields;
 import com.tbc.playarea.annotations.KYCString;
 
@@ -8,9 +9,10 @@ public class StringFieldValidator implements BasicFieldValidation {
 	
 	private ValidationDocument<KYCString> document;
 	
-	public StringFieldValidator(ValidationDocument<KYCString> document) {
+	@SuppressWarnings("unchecked")
+	public StringFieldValidator(BasicValidationDocument document) {
 		super();
-		this.document = document;
+		this.document = (ValidationDocument<KYCString>) document;
 	}
 
 	public ValidationDocument<KYCString> getDocument() {

@@ -17,11 +17,22 @@ public abstract class BasicValidator {
 	
 	public boolean validate(Object... objects) {
 		boolean valid = validateOnMethods(objects);
-		if(valid && null != nextValidator) 
-			valid = nextValidator.validate(objects);
+		if(null != nextValidator) { 
+			boolean nextValid = nextValidator.validate(objects);
+			valid = valid ? nextValid : valid;
+		}
 		return valid;
 	}
+	
+	public String getErrorMessages() {
+		StringBuilder sb = new StringBuilder(getErrorReporter().getErrorMessages()).append("\n");
+		if(null != nextValidator) {
+			sb.append(nextValidator.getErrorMessages()).append("\n");
+		}
+		return sb.toString();
+	}
 
-	public abstract boolean validateOnMethods(Object... objects);
-	public abstract void setErrorReporter(ErrorReporter errorReporter);
+	protected abstract boolean validateOnMethods(Object... objects);
+	protected abstract void setErrorReporter(ErrorReporter errorReporter);
+	protected abstract ErrorReporter getErrorReporter();
 }

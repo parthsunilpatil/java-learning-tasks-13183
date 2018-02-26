@@ -1,5 +1,5 @@
 com/tbc/playarea/annotations/KYCValidationDriver.class
-com/tbc/playarea/annotations/impl/DocumentValidator.class
+com/tbc/playarea/annotations/ErrorReporter.class
 com/tbc/playarea/annotations/KYCList.class
 com/tbc/playarea/annotations/DocumentFields.class
 com/tbc/playarea/annotations/model/Aadhar.class
@@ -12,6 +12,7 @@ com/tbc/playarea/annotations/model/Aadhar$AadharBuilder.class
 com/tbc/playarea/annotations/model/ConsistencyCheckObject.class
 com/tbc/playarea/annotations/model/PanCard.class
 com/tbc/playarea/annotations/impl/FieldValidator.class
+com/tbc/playarea/annotations/test/FieldValidationTest.class
 com/tbc/playarea/annotations/KYCDate.class
 com/tbc/playarea/annotations/model/FieldValidationObject.class
 com/tbc/playarea/annotations/impl/StringFieldValidator.class
@@ -19,6 +20,7 @@ com/tbc/playarea/annotations/impl/BasicValidator.class
 com/tbc/playarea/annotations/BasicFieldValidation.class
 com/tbc/playarea/annotations/model/BankStatement.class
 com/tbc/playarea/annotations/KYCNumber.class
+com/tbc/playarea/annotations/impl/ConsistencyValidationErrorReporter.class
 com/tbc/playarea/annotations/model/Transaction.class
 com/tbc/playarea/annotations/impl/NumberFieldValidator.class
 com/tbc/playarea/annotations/KYCRealNumber.class
@@ -29,6 +31,7 @@ com/tbc/playarea/annotations/BasicValidationDocument.class
 com/tbc/playarea/annotations/KYCString.class
 com/tbc/playarea/annotations/ConsistencyCheck.class
 com/tbc/playarea/annotations/model/BankStatement$1.class
+com/tbc/playarea/annotations/impl/FieldValidationErrorReporter.class
 com/tbc/playarea/annotations/model/BasicValidationObject.class
 com/tbc/playarea/annotations/model/BankStatement$BankStatementBuilder.class
 com/tbc/playarea/annotations/impl/ValidationDocument.class

@@ -8,7 +8,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
 @Retention(RUNTIME)
-@Target({ FIELD, METHOD })
+@Target(METHOD)
 public @interface ConsistencyCheck {
 
 }

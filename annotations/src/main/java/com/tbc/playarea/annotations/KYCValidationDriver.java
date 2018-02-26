@@ -1,8 +1,5 @@
 package com.tbc.playarea.annotations;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.tbc.playarea.annotations.impl.BasicValidator;
 import com.tbc.playarea.annotations.impl.ConsistencyValidator;
 import com.tbc.playarea.annotations.impl.FieldValidator;
@@ -13,10 +10,12 @@ import com.tbc.playarea.annotations.model.PanCard;
 public class KYCValidationDriver {
 	
 	public static boolean validateKYC(Aadhar aadhar, PanCard panCard, BankStatement bankStatement) {
-		List<String> errorMessages = new ArrayList<>();
-		BasicValidator fieldValidator = new FieldValidator(errorMessages);
-		BasicValidator consistencyValidator = new ConsistencyValidator(errorMessages);
+		BasicValidator fieldValidator = new FieldValidator();
+		BasicValidator consistencyValidator = new ConsistencyValidator();
 		fieldValidator.setNextValidator(consistencyValidator);
-		return fieldValidator.validate(aadhar, panCard, bankStatement);
+		boolean valid = fieldValidator.validate(aadhar, panCard, bankStatement);
+		if(!valid) 
+			System.out.println(fieldValidator.getErrorMessages());
+		return valid;
 	}
 }

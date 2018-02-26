@@ -7,6 +7,7 @@ import com.tbc.playarea.annotations.CustomValidateField;
 import com.tbc.playarea.annotations.DocumentFields;
 import com.tbc.playarea.annotations.KYCList;
 import com.tbc.playarea.annotations.KYCString;
+import com.tbc.playarea.annotations.impl.StringFieldValidator;
 
 public class BankStatement {
 	
@@ -22,39 +23,39 @@ public class BankStatement {
 	
 	private String email;
 
-	@CustomValidateField(minLength = 10, maxLength = 10, type = DocumentFields.INTEGER)
+	@CustomValidateField(annotationClass = KYCString.class, validationClass = StringFieldValidator.class)
 	@KYCString(minLength = 10, maxLength = 10, type = DocumentFields.NUMERIC_STRING)
 	public String getAccountNumber() {
 		return accountNumber;
 	}
 
 	@ConsistencyCheck
-	@CustomValidateField(maxLength = 50, type = DocumentFields.ALPHABETICAL)
+	@CustomValidateField(annotationClass = KYCString.class, validationClass = StringFieldValidator.class)
 	@KYCString(maxLength = 50, type = DocumentFields.ALPHABETICAL)
 	public String getCustomerName() {
 		return customerName;
 	}
 
-	@CustomValidateField(type = DocumentFields.LIST)
+	@CustomValidateField
 	@KYCList
 	public List<Transaction> getTransactions() {
 		return transactions;
 	}
 
 	@ConsistencyCheck
-	@CustomValidateField(maxLength = 100, type = DocumentFields.ALPHANUMERIC)
+	@CustomValidateField(annotationClass = KYCString.class, validationClass = StringFieldValidator.class)
 	@KYCString(maxLength = 100)
 	public String getAddress() {
 		return address;
 	}
 
-	@CustomValidateField(minLength = 10, maxLength = 10, type = DocumentFields.NUMERIC_STRING)
+	@CustomValidateField(annotationClass = KYCString.class, validationClass = StringFieldValidator.class)
 	@KYCString(minLength = 10, maxLength = 10, type = DocumentFields.NUMERIC_STRING)
 	public String getMobileNumber() {
 		return mobileNumber;
 	}
 	
-	@CustomValidateField(maxLength = 50, type = DocumentFields.EMAIL)
+	@CustomValidateField(annotationClass = KYCString.class, validationClass = StringFieldValidator.class)
 	@KYCString(maxLength = 50, type = DocumentFields.EMAIL)
 	public String getEmail() {
 		return email;

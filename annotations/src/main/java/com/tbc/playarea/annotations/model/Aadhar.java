@@ -7,6 +7,8 @@ import com.tbc.playarea.annotations.CustomValidateField;
 import com.tbc.playarea.annotations.DocumentFields;
 import com.tbc.playarea.annotations.KYCDate;
 import com.tbc.playarea.annotations.KYCString;
+import com.tbc.playarea.annotations.impl.DateFieldValidator;
+import com.tbc.playarea.annotations.impl.StringFieldValidator;
 
 public class Aadhar {
 	
@@ -19,26 +21,26 @@ public class Aadhar {
 	private LocalDate dob;
 
 	@ConsistencyCheck
-	@CustomValidateField(maxLength = 50, type = DocumentFields.ALPHABETICAL)
+	@CustomValidateField(annotationClass = KYCString.class, validationClass = StringFieldValidator.class)
 	@KYCString(maxLength = 50, type = DocumentFields.ALPHABETICAL)
 	public String getFullname() {
 		return fullname;
 	}
 
-	@CustomValidateField(type = DocumentFields.GENDER)
+	@CustomValidateField(annotationClass = KYCString.class, validationClass = StringFieldValidator.class)
 	@KYCString(minLength = 4, maxLength = 6, type = DocumentFields.GENDER)
 	public String getGender() {
 		return gender;
 	}
 
 	@ConsistencyCheck
-	@CustomValidateField(maxLength = 100, type = DocumentFields.ALPHANUMERIC)
+	@CustomValidateField(annotationClass = KYCString.class, validationClass = StringFieldValidator.class)
 	@KYCString(maxLength = 100)
 	public String getAddress() {
 		return address;
 	}
 	
-	@CustomValidateField(type = DocumentFields.DATE)
+	@CustomValidateField(annotationClass = KYCDate.class, validationClass = DateFieldValidator.class)
 	@KYCDate(notBefore = "1969-01-01", notAfter = "2018-12-31")
 	public LocalDate getDob() {
 		return dob;

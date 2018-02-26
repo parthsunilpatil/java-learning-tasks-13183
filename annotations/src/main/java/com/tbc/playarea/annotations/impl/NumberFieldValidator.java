@@ -1,6 +1,7 @@
 package com.tbc.playarea.annotations.impl;
 
 import com.tbc.playarea.annotations.BasicFieldValidation;
+import com.tbc.playarea.annotations.BasicValidationDocument;
 import com.tbc.playarea.annotations.KYCNumber;
 
 public class NumberFieldValidator implements BasicFieldValidation {
@@ -10,9 +11,10 @@ public class NumberFieldValidator implements BasicFieldValidation {
 		return document;
 	}
 
-	public NumberFieldValidator(ValidationDocument<KYCNumber> document) {
+	@SuppressWarnings("unchecked")
+	public NumberFieldValidator(BasicValidationDocument document) {
 		super();
-		this.document = document;
+		this.document = (ValidationDocument<KYCNumber>) document;
 	}
 
 	@Override
